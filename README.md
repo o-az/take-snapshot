@@ -8,7 +8,7 @@
 
 ---
 
-#### - Make changes to constants.py and to main.py accordingly
+#### - Make changes to `constants.py` and to `main.py` accordingly
 
 #### - `getAddresses()` in `main.py` is where you want to tinker with counts and limits based on your needs
 
