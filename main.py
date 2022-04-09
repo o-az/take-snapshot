@@ -1,16 +1,15 @@
 from balance import getTokenBalance
 from accounts import getChainAccounts
-from utilities import prettyPrint, b64Encode, writeToFile
+from utilities import b64Encode, writeToFile, prettyPrint
 
 
 def getAddresses():
     response = getChainAccounts()
     # totalAccountsCount is all accounts in the chain
-    totalAccountsCount, nextKey = response["pagination"].values()
-
+    nextKey, totalAccountsCount = response["pagination"].values()
+    print(f"Total accounts count: {totalAccountsCount}")
     """Tinker with these values below to get more addresses, etc."""
-    pageLimit, count = 2, 2
-
+    pageLimit, count = 6, 6
     addressesList = []
     while count > 0:
         if nextKey:
@@ -24,12 +23,17 @@ def getAddresses():
     return addressesList
 
 
+filterZeros = lambda item: item[1] != "0" and item[1] != 0
+
+
 def main():
     addresses = getAddresses()
     balances = [getTokenBalance(address) for address in addresses]
-    hashed = dict(zip(addresses, balances))
-    writeToFile(hashed, fileType="json")
-    return hashed
+    yeet = zip(addresses, balances)
+    pairs = dict(filter(filterZeros, yeet))
+    writeToFile(pairs)
+    return pairs
 
 
+# uncomment me
 prettyPrint(main())

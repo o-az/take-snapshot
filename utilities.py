@@ -3,7 +3,6 @@ import json
 import csv
 from constants import OUTPUT_FILE_TYPE
 
-
 def prettyPrint(jsonObject):
     pretty = json.dumps(jsonObject, indent=2, default=str)
     return print(pretty)
